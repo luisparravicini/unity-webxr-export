@@ -12,6 +12,7 @@ namespace WebXR.Interactions
 
         private FixedJoint attachJoint;
         private Rigidbody currentRigidBody;
+        private Interactable currentInteractable;
         private List<Rigidbody> contactRigidBodies = new List<Rigidbody>();
 
         [SerializeField] private Animator animator;
@@ -513,15 +514,16 @@ namespace WebXR.Interactions
                 return;
 
             var pickupPosition = transform.position;
-            var interactable = currentRigidBody.gameObject.GetComponent<Interactable>();
-            if (interactable != null)
-            {
-                pickupPosition = interactable.AdjustPickupPosition(pickupPosition);
-                interactable.AdjustRotation();
-            }
+
+            currentInteractable = currentRigidBody.gameObject.GetComponentInParent<Interactable>();
+            if (currentInteractable != null)
+                pickupPosition = currentInteractable.BeforePickup(pickupPosition);
 
             currentRigidBody.MovePosition(pickupPosition);
             attachJoint.connectedBody = currentRigidBody;
+
+            if (currentInteractable != null)
+                currentInteractable.OnPickup();
         }
 
         public void Drop()
@@ -530,7 +532,12 @@ namespace WebXR.Interactions
                 return;
             currentRigidBody.velocity = currentVelocity;
             attachJoint.connectedBody = null;
+
+            if (currentInteractable != null)
+                currentInteractable.OnDrop();
+
             currentRigidBody = null;
+            currentInteractable = null;
         }
 
         private Rigidbody GetNearestRigidBody()
