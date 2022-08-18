@@ -8,6 +8,8 @@ namespace WebXR.Interactions
 {
     public class ControllerInteractionCustom : MonoBehaviour
     {
+        private const string InteractableTag = "Interactable";
+
         private FixedJoint attachJoint = null;
         private Rigidbody currentRigidBody = null;
         private List<Rigidbody> contactRigidBodies = new List<Rigidbody>();
@@ -148,7 +150,7 @@ namespace WebXR.Interactions
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag != "Interactable")
+            if (other.gameObject.tag != InteractableTag)
                 return;
 
             contactRigidBodies.Add(other.gameObject.GetComponent<Rigidbody>());
@@ -157,7 +159,7 @@ namespace WebXR.Interactions
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag != "Interactable")
+            if (other.gameObject.tag != InteractableTag)
                 return;
 
             contactRigidBodies.Remove(other.gameObject.GetComponent<Rigidbody>());
