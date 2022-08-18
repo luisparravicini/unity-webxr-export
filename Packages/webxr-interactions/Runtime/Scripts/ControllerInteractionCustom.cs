@@ -10,20 +10,20 @@ namespace WebXR.Interactions
     {
         private const string InteractableTag = "Interactable";
 
-        private FixedJoint attachJoint = null;
-        private Rigidbody currentRigidBody = null;
+        private FixedJoint attachJoint;
+        private Rigidbody currentRigidBody;
         private List<Rigidbody> contactRigidBodies = new List<Rigidbody>();
 
-        [SerializeField] private Animator animator = null;
+        [SerializeField] private Animator animator;
         [SerializeField] private string animationStateName = "Take";
         private WebXRController controller;
-        private bool hasAnimator = false;
-        private bool controllerVisible = false;
+        private bool hasAnimator;
+        private bool controllerVisible;
 
         public GameObject[] controllerVisuals;
 
         public Transform handJointPrefab;
-        private bool handJointsVisible = false;
+        private bool handJointsVisible;
         [SerializeField] private bool useCollidersForHandJoints = true;
 
         [SerializeField] private bool useInputProfile = true;
@@ -41,13 +41,13 @@ namespace WebXR.Interactions
 #if WEBXR_INPUT_PROFILES
     private InputProfileLoader inputProfileLoader;
     private InputProfileModel inputProfileModel;
-    private bool hasProfileList = false;
-    private bool loadedModel = false;
-    private string loadedProfile = null;
+    private bool hasProfileList;
+    private bool loadedModel;
+    private string loadedProfile;
 
     private InputProfileModel inputProfileHandModel;
-    private bool loadedHandModel = false;
-    private string loadedHandProfile = null;
+    private bool loadedHandModel;
+    private string loadedHandProfile;
     private Dictionary<int, Transform> handModelJoints = new Dictionary<int, Transform>();
     private static Quaternion quat180 = Quaternion.Euler(0, 180, 0);
 #endif
