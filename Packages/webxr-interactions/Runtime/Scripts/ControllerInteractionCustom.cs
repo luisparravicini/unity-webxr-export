@@ -523,18 +523,19 @@ namespace WebXR.Interactions
             attachJoint.connectedBody = currentRigidBody;
 
             if (currentInteractable != null)
-                currentInteractable.OnPickup();
+                currentInteractable.OnPickup(currentRigidBody);
         }
 
         public void Drop()
         {
             if (!currentRigidBody)
                 return;
+
             currentRigidBody.velocity = currentVelocity;
             attachJoint.connectedBody = null;
 
             if (currentInteractable != null)
-                currentInteractable.OnDrop();
+                currentInteractable.OnDrop(currentRigidBody);
 
             currentRigidBody = null;
             currentInteractable = null;
