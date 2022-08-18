@@ -512,7 +512,15 @@ namespace WebXR.Interactions
             if (!currentRigidBody)
                 return;
 
-            currentRigidBody.MovePosition(transform.position);
+            var pickupPosition = transform.position;
+            var interactable = currentRigidBody.gameObject.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                pickupPosition = interactable.AdjustPickupPosition(pickupPosition);
+                interactable.AdjustRotation();
+            }
+
+            currentRigidBody.MovePosition(pickupPosition);
             attachJoint.connectedBody = currentRigidBody;
         }
 
