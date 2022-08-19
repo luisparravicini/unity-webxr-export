@@ -8,6 +8,15 @@ namespace WebXR.Interactions
 {
     public class ControllerInteractionCustom : MonoBehaviour
     {
+        [System.Serializable]
+        public class CollisionReaction
+        {
+            public bool enabled = true;
+            [Range(0, 1)]
+            public float intensity = 0.3f;
+            public float duration = 250;
+        }
+
         private const string InteractableTag = "Interactable";
 
         private FixedJoint attachJoint;
@@ -36,6 +45,7 @@ namespace WebXR.Interactions
         private Dictionary<int, Transform> handJoints = new Dictionary<int, Transform>();
         public GameObject inputProfileHandModelParent;
 
+        public CollisionReaction collisionReaction;
         private Vector3 currentVelocity;
         private Vector3 previousPos;
 
@@ -155,7 +165,9 @@ namespace WebXR.Interactions
                 return;
 
             contactRigidBodies.Add(other.gameObject.GetComponent<Rigidbody>());
-            controller.Pulse(0.5f, 250);
+
+            if (collisionReaction.enabled)
+                controller.Pulse(collisionReaction.intensity, collisionReaction.duration);
         }
 
         private void OnTriggerExit(Collider other)
