@@ -9,7 +9,7 @@ namespace WebXR.Interactions
     // </summary>
     public class Interactable : MonoBehaviour
     {
-        public float dropVelocityFactory = 1;
+        public float dropVelocityFactor = 1;
         public UnityEvent OnPickupEvent;
         public UnityEvent OnDropEvent;
 
@@ -31,7 +31,7 @@ namespace WebXR.Interactions
         {
             Debug.Log("drop " + gameObject.name);
 
-            rigidbody.velocity = rigidbody.velocity * dropVelocityFactory;
+            rigidbody.velocity = rigidbody.velocity * dropVelocityFactor;
 
             if (OnDropEvent != null)
                 OnDropEvent.Invoke();
