@@ -15,7 +15,6 @@ namespace WebXR.Interactions
 
         public Vector3 BeforePickup(Vector3 newPosition)
         {
-            transform.rotation = Quaternion.Euler(45, 45, 45);
             return newPosition;
         }
 
