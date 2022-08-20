@@ -12,9 +12,13 @@ namespace WebXR.Interactions
         public float dropVelocityFactor = 1;
         public UnityEvent OnPickupEvent;
         public UnityEvent OnDropEvent;
+        public UnityEvent<Transform> OnBeforePickupEvent;
 
-        public Vector3 BeforePickup(Vector3 newPosition)
+        public Vector3 BeforePickup(Transform controller, Vector3 newPosition)
         {
+            if (OnBeforePickupEvent != null)
+                OnBeforePickupEvent.Invoke(controller);
+
             return newPosition;
         }
 

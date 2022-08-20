@@ -529,7 +529,7 @@ namespace WebXR.Interactions
 
             currentInteractable = currentRigidBody.gameObject.GetComponentInParent<Interactable>();
             if (currentInteractable != null)
-                pickupPosition = currentInteractable.BeforePickup(pickupPosition);
+                pickupPosition = currentInteractable.BeforePickup(transform, pickupPosition);
 
             currentRigidBody.MovePosition(pickupPosition);
             attachJoint.connectedBody = currentRigidBody;
