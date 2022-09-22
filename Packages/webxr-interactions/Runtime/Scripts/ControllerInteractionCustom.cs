@@ -518,6 +518,15 @@ namespace WebXR.Interactions
     }
 #endif
 
+        public void Attach(Rigidbody body)
+        {
+            attachJoint.connectedBody = body;
+        }
+        public void Detach()
+        {
+            attachJoint.connectedBody = null;
+        }
+
         public void Pickup()
         {
             currentRigidBody = GetNearestRigidBody();
